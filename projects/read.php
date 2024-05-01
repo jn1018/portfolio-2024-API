@@ -38,6 +38,8 @@ if ($num>0) {
 			"name" => $name,
 			"description" => html_entity_decode($description),
 			"project_url" => $project_url,
+			"image_path_1" => $image_path_1,
+			"image_path_2" => $image_path_2,
 			"type_id" => $type_id,
 			"type_name" => $type_name
 		);

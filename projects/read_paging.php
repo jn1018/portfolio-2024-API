@@ -41,6 +41,8 @@ if ($num>0) {
 			"name" => $name,
 			"description" => html_entity_decode($description),
 			"project_url" => $project_url,
+			"image_path_1" => $image_path_1,
+			"image_path_2" => $image_path_2,
 			"type_id" => $type_id,
 			"type_name" => $type_name
 		);
@@ -53,16 +55,14 @@ if ($num>0) {
 	$total_rows = $project->count();
 	$page_url = "{$home_url}project/read_paging.php?";
 	$paging = $utilities->getPaging($page, $total_rows, $records_per_page, $page_url);
-	$projects_arr["paging"]=$paging;
+	$projects_arr["paging"] = $paging;
 
 	// set response code - 200 OK
 	http_response_code(200);
 
 	// make it json format
 	echo json_encode($projects_arr);
-}
-
-else{
+} else {
 
 	// set response code - 404 Not found
 	http_response_code(404);

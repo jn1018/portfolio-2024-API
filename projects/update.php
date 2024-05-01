@@ -27,6 +27,8 @@ $project->id = $data->id;
 $project->name = $data->name;
 $project->project_url = $data->project_url;
 $project->description = $data->description;
+$project->image_path_1 = $data->image_path_1;
+$project->image_path_2 = $data->image_path_2;
 $project->type_id = $data->type_id;
 
 // update the project

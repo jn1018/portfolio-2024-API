@@ -54,6 +54,8 @@ CREATE TABLE `projects` (
   `name` varchar(256) NOT NULL,
   `description` text NOT NULL,
   `project_url` varchar(256) NULL,
+  `image_path_1` varchar(256) NULL,
+  `image_path_2` varchar(256) NULL,
   `type_id` int(11) NOT NULL,
   `created` datetime NOT NULL,
   `modified` timestamp NOT NULL DEFAULT current_timestamp()
