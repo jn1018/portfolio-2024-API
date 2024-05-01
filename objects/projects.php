@@ -221,8 +221,8 @@ class Project {
 		return $stmt;
 	}
 
-	// read projects
-	function readAllProjectsByCategoryId(){
+	// read projects by type id
+	function readAllProjectsByTypeId(){
 
 		// select all query
 		$query = "SELECT
