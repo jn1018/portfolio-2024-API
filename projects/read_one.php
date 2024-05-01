@@ -30,6 +30,8 @@ if ($project->name != null) {
 		"name" => $project->name,
 		"description" => $project->description,
 		"project_url" => $project->project_url,
+		"image_path_1" => $project->image_path_1,
+		"image_path_2" => $project->image_path_2,
 		"type_id" => $project->type_id,
 		"type_name" => $project->type_name
 

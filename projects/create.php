@@ -23,7 +23,6 @@ $data = json_decode(file_get_contents("php://input"));
 // make sure data is not empty
 if(
 	!empty($data->name) &&
-	!empty($data->project_url) &&
 	!empty($data->description) &&
 	!empty($data->type_id)
 ){
@@ -31,6 +30,8 @@ if(
 	// set project property values
 	$project->name = $data->name;
 	$project->project_url = $data->project_url;
+	$project->image_path_1 = $data->image_path_1;
+	$project->image_path_2 = $data->image_path_2;
 	$project->description = $data->description;
 	$project->type_id = $data->type_id;
 	$project->created = date('Y-m-d H:i:s');

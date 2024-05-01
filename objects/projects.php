@@ -10,6 +10,8 @@ class Project {
 	public $name;
 	public $description;
 	public $project_url;
+	public $image_path_1;
+	public $image_path_2;
 	public $type_id;
 	public $type_name;
 	public $created;
@@ -23,14 +25,14 @@ class Project {
 	public function export_CSV(){
 
 		//select all data
-		$query = "SELECT id, name, description, project_url, created, modified FROM projects";
+		$query = "SELECT id, name, description, project_url, image_path_1, image_path_2, created, modified FROM projects";
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute();
 
 		//this is how to get number of rows returned
 		$num = $stmt->rowCount();
 
-		$out = "ID,Name,Description,project_url,Created,Modified\n";
+		$out = "ID,Name,Description,ProjectUrl,ImagePath1,ImagePath2,Created,Modified\n";
 
 		if($num>0){
 			//retrieve our table contents
@@ -41,7 +43,7 @@ class Project {
 				//this will make $row['name'] to
 				//just $name only
 				extract($row);
-				$out.="{$id},\"{$name}\",\"{$description}\",{$project_url},{$created},{$modified}\n";
+				$out.="{$id},\"{$name}\",\"{$description}\",\"{$project_url}\",\"{$image_path_1}\",\"{$image_path_2}\",{$created},{$modified}\n";
 			}
 		}
 
@@ -93,7 +95,7 @@ class Project {
 		$query = "INSERT INTO
 					" . $this->table_name . "
 				SET
-					name=:name, project_url=:project_url, description=:description, type_id=:type_id, created=:created";
+					name=:name, project_url=:project_url, description=:description, image_path_1=:image_path_1, image_path_2=:image_path_2, type_id=:type_id, created=:created";
 
 		// prepare query
 		$stmt = $this->conn->prepare($query);
@@ -101,6 +103,8 @@ class Project {
 		// sanitize
 		$this->name = htmlspecialchars(strip_tags($this->name));
 		$this->project_url = htmlspecialchars(strip_tags($this->project_url));
+		$this->image_path_1 = htmlspecialchars(strip_tags($this->image_path_1));
+		$this->image_path_2 = htmlspecialchars(strip_tags($this->image_path_2));
 		$this->description = htmlspecialchars(strip_tags($this->description));
 		$this->type_id = htmlspecialchars(strip_tags($this->type_id));
 		$this->created = htmlspecialchars(strip_tags($this->created));
@@ -108,6 +112,8 @@ class Project {
 		// bind values
 		$stmt->bindParam(":name", $this->name);
 		$stmt->bindParam(":project_url", $this->project_url);
+		$stmt->bindParam(":image_path_1", $this->image_path_1);
+		$stmt->bindParam(":image_path_2", $this->image_path_2);
 		$stmt->bindParam(":description", $this->description);
 		$stmt->bindParam(":type_id", $this->type_id);
 		$stmt->bindParam(":created", $this->created);
@@ -129,7 +135,7 @@ class Project {
 
 		// select all query
 		$query = "SELECT
-					t.name as type_name, p.id, p.name, p.description, p.project_url, p.type_id, p.created
+					t.name as type_name, p.id, p.name, p.description, p.project_url, p.image_path_1, p.image_path_2, p.type_id, p.created
 				FROM
 					" . $this->table_name . " p
 					LEFT JOIN
@@ -152,7 +158,7 @@ class Project {
 
 		// select all query
 		$query = "SELECT
-					t.name as type_name, p.id, p.name, p.description, p.project_url, p.type_id, p.created
+					t.name as type_name, p.id, p.name, p.description, p.project_url, p.image_path_1, p.image_path_2, p.type_id, p.created
 				FROM
 					" . $this->table_name . " p
 					LEFT JOIN project_types t
@@ -186,7 +192,7 @@ class Project {
 
 		// select all query
 		$query = "SELECT
-					t.name as type_name, p.id, p.name, p.description, p.project_url, p.type_id, p.created
+					t.name as type_name, p.id, p.name, p.description, p.project_url, p.image_path_1, p.image_path_2, p.type_id, p.created
 				FROM
 					" . $this->table_name . " p
 					LEFT JOIN
@@ -220,7 +226,7 @@ class Project {
 
 		// select all query
 		$query = "SELECT
-					t.name as type_name, p.id, p.name, p.description, p.project_url, p.type_id, p.created
+					t.name as type_name, p.id, p.name, p.description, p.project_url, p.image_path_1, p.image_path_2, p.type_id, p.created
 				FROM
 					" . $this->table_name . " p
 					LEFT JOIN
@@ -248,7 +254,7 @@ class Project {
 
 		// query to read single record
 		$query = "SELECT
-					t.name as type_name, p.id, p.name, p.description, p.project_url, p.type_id, p.created
+					t.name as type_name, p.id, p.name, p.description, p.project_url, p.image_path_1, p.image_path_2, p.type_id, p.created
 				FROM
 					" . $this->table_name . " p
 					LEFT JOIN
@@ -274,6 +280,8 @@ class Project {
 		// set values to object properties
 		$this->name = $row['name'];
 		$this->project_url = $row['project_url'];
+		$this->image_path_1 = $row['image_path_1'];
+		$this->image_path_2 = $row['image_path_2'];
 		$this->description = $row['description'];
 		$this->type_id = $row['type_id'];
 		$this->type_name = $row['type_name'];
@@ -284,7 +292,7 @@ class Project {
 
 		// select query
 		$query = "SELECT
-					t.name as type_name, p.id, p.name, p.description, p.project_url, p.type_id, p.created
+					t.name as type_name, p.id, p.name, p.description, p.project_url, p.image_path_1, p.image_path_2, p.type_id, p.created
 				FROM
 					" . $this->table_name . " p
 					LEFT JOIN
@@ -316,6 +324,8 @@ class Project {
 				SET
 					name = :name,
 					project_url = :project_url,
+					image_path_1 = :image_path_1,
+					image_path_2 = :image_path_2,
 					description = :description,
 					type_id = :type_id
 				WHERE
@@ -327,6 +337,8 @@ class Project {
 		// sanitize
 		$this->name=htmlspecialchars(strip_tags($this->name));
 		$this->project_url=htmlspecialchars(strip_tags($this->project_url));
+		$this->image_path_1=htmlspecialchars(strip_tags($this->image_path_1));
+		$this->image_path_2=htmlspecialchars(strip_tags($this->image_path_2));
 		$this->description=htmlspecialchars(strip_tags($this->description));
 		$this->type_id=htmlspecialchars(strip_tags($this->type_id));
 		$this->id=htmlspecialchars(strip_tags($this->id));
@@ -334,6 +346,8 @@ class Project {
 		// bind new values
 		$stmt->bindParam(':name', $this->name);
 		$stmt->bindParam(':project_url', $this->project_url);
+		$stmt->bindParam(':image_path_1', $this->image_path_1);
+		$stmt->bindParam(':image_path_2', $this->image_path_2);
 		$stmt->bindParam(':description', $this->description);
 		$stmt->bindParam(':type_id', $this->type_id);
 		$stmt->bindParam(':id', $this->id);
